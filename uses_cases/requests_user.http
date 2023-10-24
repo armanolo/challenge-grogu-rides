@@ -1,0 +1,37 @@
+### Get user info
+
+GET http://{{hostname}}:{{port}}/user/7db26fba-d165-432c-bad4-21009d3d1458
+Content-Type: application/json
+
+### Create a new user
+
+POST http://{{hostname}}:{{port}}/user
+content-type: application/json
+
+{
+  "id": "1c7fcfd7-423b-4742-a20c-49cba845bf2f",
+  "dni": "04453614D",
+  "name": "Arturo Fernandez"
+}
+
+### Get error to duplicate user dni : DNI is duplicated
+
+POST http://{{hostname}}:{{port}}/user
+content-type: application/json
+
+{
+  "id": "ba0c47de-72ce-4e44-8f51-5a74eead8274",
+  "dni": "04453614D",
+  "name": "Julian Del Pozo Garcia"
+}
+
+### Get error by invalid Vehicle id: Invalid Name"
+
+POST http://{{hostname}}:{{port}}/user
+content-type: application/json
+
+{
+  "id": "e87191f3-0eef-4afc-b722-4c1ed16128b5",
+  "dni": "68623214T",
+  "name": "DJ"
+}

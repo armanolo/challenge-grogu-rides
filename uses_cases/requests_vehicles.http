@@ -1,0 +1,67 @@
+### Get vehicles list
+
+GET http://{{hostname}}:{{port}}/vehicles
+Content-Type: application/json
+
+### Set vehicles list
+
+POST http://{{hostname}}:{{port}}/vehicles
+content-type: application/json
+
+[
+  {
+    "id": "1c7fcfd7-423b-4742-a20c-49cba845bf2f",
+    "seats": 5
+  },
+  {
+    "id": "c02530b9-2082-4706-a8f3-f91b7ddecb79",
+    "seats": 3
+  }
+]
+
+### Set vehicles empty list
+
+POST http://{{hostname}}:{{port}}/vehicles
+content-type: application/json
+
+[]
+
+### Get error to duplicate vehicle Ids : IDs are duplicated
+
+POST http://{{hostname}}:{{port}}/vehicles
+content-type: application/json
+
+[
+  {
+    "id": "1c7fcfd7-423b-4742-a20c-49cba845bf2f",
+    "seats": 5
+  },
+  {
+    "id": "1c7fcfd7-423b-4742-a20c-49cba845bf2f",
+    "seats": 3
+  }
+]
+
+### Get error by invalid Vehicle id: Invalid Vehicle id: 1L"
+
+POST http://{{hostname}}:{{port}}/vehicles
+content-type: application/json
+
+[
+  {
+    "id": "1L",
+    "seats": 3
+  }
+]
+
+### Get error by invalid Vehicle seats: Invalid seats: got 0 when minimum is 1 and the maximum is 6"
+
+POST http://{{hostname}}:{{port}}/vehicles
+content-type: application/json
+
+[
+  {
+    "id": "1c7fcfd7-423b-4742-a20c-49cba845bf2f",
+    "seats": 0
+  }
+]

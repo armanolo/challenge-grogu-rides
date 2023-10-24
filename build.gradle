@@ -1,0 +1,165 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.0.6'
+	id 'io.spring.dependency-management' version '1.1.0'
+	id 'com.diffplug.spotless' version '6.18.0'
+	id "au.com.dius.pact" version "4.3.10"
+	id "jacoco"
+}
+
+group = 'org.mmm'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+repositories {
+	mavenCentral()
+}
+
+ext {
+	set('datafakerVersion', "1.9.0")
+	set('cucumberVersion', "7.10.0")
+	set('mapStructVersion', "1.5.2.Final")
+	set('pactConsumerJavaVersion', "4.1.41")
+	set('pactConsumerJUnit5Version', "4.3.5")
+}
+
+configurations {
+	cucumberRuntime.extendsFrom testImplementation
+
+	testIntegrationImplementation.extendsFrom testImplementation
+	testIntegrationCompileOnly.extendsFrom testCompileOnly
+	testIntegrationRuntime.extendsFrom testRuntimeOnly
+	testIntegrationRuntimeOnly.extendsFrom testRuntimeOnly
+
+	testContractImplementation.extendsFrom testImplementation
+	testContractCompileOnly.extendsFrom testCompileOnly
+	testContractRuntime.extendsFrom testRuntimeOnly
+	testContractRuntimeOnly.extendsFrom testRuntimeOnly
+}
+
+dependencies {
+	//compileOnly 'javax.validation:validation-api'
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	runtimeOnly 'com.h2database:h2'
+
+	implementation(
+		'org.springframework.boot:spring-boot-starter-data-jpa',
+		'org.springframework.boot:spring-boot-starter-hateoas',
+		'org.springframework.boot:spring-boot-starter-web',
+		"org.mapstruct:mapstruct:${mapStructVersion}",
+		'org.postgresql:postgresql',
+		'org.projectlombok:lombok:1.18.26',
+		'org.springframework.boot:spring-boot-starter-validation',
+		'org.springframework.boot:spring-boot-starter-test',
+		"net.datafaker:datafaker:${datafakerVersion}",
+		'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
+	)
+
+	testIntegrationImplementation(
+		'org.testcontainers:testcontainers:1.18.0',
+		'org.testcontainers:postgresql:1.18.0',
+		'org.testcontainers:junit-jupiter:1.18.0',
+		'org.junit.jupiter:junit-jupiter-api:5.9.3',
+		'org.junit.platform:junit-platform-suite-api:1.9.3',
+		"io.cucumber:cucumber-java:${cucumberVersion}",
+		"io.cucumber:cucumber-junit:${cucumberVersion}",
+		"io.cucumber:cucumber-spring:${cucumberVersion}",
+		'io.cucumber:cucumber-junit-platform-engine:7.12.0',
+		'io.rest-assured:rest-assured:5.3.0',
+		'io.cucumber:cucumber-core:7.10.0',
+	)
+
+	testContractImplementation(
+			'au.com.dius.pact.provider:junit5:4.3.7',
+			'au.com.dius.pact.provider:junit5spring:4.3.7'
+			//"au.com.dius.pact.consumer:java8:${pactConsumerJavaVersion}",
+			//"au.com.dius.pact.consumer:junit5:${pactConsumerJUnit5Version}",
+			//'au.com.dius.pact:provider:4.6.0',
+			//"au.com.dius.pact.provider:gradle:4.3.10",
+			//"au.com.dius.pact.provider:junit5:${pactConsumerJUnit5Version}",
+	)
+
+	spotless {
+		java {
+			indentWithSpaces(4)
+			removeUnusedImports()
+			endWithNewline()
+			setEncoding('UTF-8')
+		}
+	}
+}
+
+sourceSets {
+	testIntegration {
+		java {
+			srcDirs = ['src/testIntegration/java']
+			compileClasspath += main.output
+			runtimeClasspath += output + main.output
+		}
+		resources {
+			srcDirs = ['src/testIntegration/resources']
+		}
+	}
+	testContract {
+		java {
+			srcDirs = ['src/testContract/java']
+			compileClasspath += main.output
+			runtimeClasspath += output + main.output
+		}
+		resources {
+			srcDirs = ['src/testContract/resources']
+		}
+	}
+}
+
+jacoco {
+	toolVersion = "0.8.7"
+}
+
+jacocoTestCoverageVerification {
+	violationRules {
+		rule {
+			limit {
+				minimum = 0.80
+			}
+		}
+
+		rule {
+			limit {
+				counter = 'BRANCH'
+				minimum = 0.75
+			}
+		}
+	}
+}
+
+tasks.register('testIntegration', Test) {
+	group = 'verification'
+	description = "Run integration test (located in src/testIntegration/...)."
+	testClassesDirs = sourceSets.testIntegration.output.classesDirs
+	classpath = sourceSets.testIntegration.runtimeClasspath
+	outputs.upToDateWhen { false }
+}
+
+tasks.register('testContract', Test) {
+	useJUnitPlatform()
+	description = 'Runs contract tests (located in src/testContract/...).'
+	group = 'verification'
+	testClassesDirs = sourceSets.testContract.output.classesDirs
+	classpath = sourceSets.testContract.runtimeClasspath
+	outputs.upToDateWhen { false }
+}
+
+tasks.withType(JacocoReport) {
+	reports {
+		xml.required.set(true)
+		csv.required.set(true)
+		html.required.set(true)
+		html.outputLocation.set(layout.buildDirectory.dir("${buildDir}/jacoco_report"))
+	}
+}
+tasks.named('test') {
+	useJUnitPlatform()
+	finalizedBy(tasks.jacocoTestReport)
+}

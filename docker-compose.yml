@@ -1,0 +1,45 @@
+version: '3.1'
+services:
+  challenge-grogu-rides-ts:
+    image: 'challenge-grogu-rides-ts'
+    ports:
+      - "80:3000"
+    depends_on:
+      - challenge-grogu-rides
+    environment:
+      - REACT_APP_GROGU_RIDE=http://challenge-grogu-rides:4040
+  challenge-grogu-rides:
+    image: 'challenge-grogu-rides'
+    ports:
+      - "4040:4040"
+    depends_on:
+      grogu_postgres:
+        condition: service_healthy
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://grogu_postgres:5432/grogu
+      - SPRING_DATASOURCE_USERNAME=grogu
+      - SPRING_DATASOURCE_PASSWORD=grogu
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+  grogu_postgres:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=grogu
+      - POSTGRES_USER=grogu
+      - POSTGRES_DB=grogu
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  pact_broker:
+    image: dius/pact-broker
+    ports:
+      - "8080:8080"
+    environment:
+      PACT_BROKER_DATABASE_USERNAME: postgres
+      PACT_BROKER_DATABASE_PASSWORD: password
+      PACT_BROKER_DATABASE_HOST: postgres
+      PACT_BROKER_DATABASE_NAME: postgres
+      PACT_BROKER_WEBHOOK_SCHEME_WHITELIST: http https

@@ -1,0 +1,55 @@
+<mxfile host="Electron" modified="2023-05-25T15:23:23.311Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.8 Chrome/112.0.5615.165 Electron/24.2.0 Safari/537.36" etag="C0na-vnXt6W77yymM39g" version="21.2.8" type="device">
+  <diagram name="Page-1" id="nPvqUinScPWAcRXVyT5u">
+    <mxGraphModel dx="944" dy="674" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="T97Yaj8DOWVPiAnZlW2O-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="T97Yaj8DOWVPiAnZlW2O-1" target="T97Yaj8DOWVPiAnZlW2O-6">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="410" y="140" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="T97Yaj8DOWVPiAnZlW2O-1" value="Actor" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="90" y="110" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="T97Yaj8DOWVPiAnZlW2O-8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="T97Yaj8DOWVPiAnZlW2O-6" target="T97Yaj8DOWVPiAnZlW2O-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="T97Yaj8DOWVPiAnZlW2O-6" value="Rent vehicle" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="250" y="110" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="T97Yaj8DOWVPiAnZlW2O-10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="T97Yaj8DOWVPiAnZlW2O-7" target="T97Yaj8DOWVPiAnZlW2O-9">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="515" y="230" />
+              <mxPoint x="440" y="230" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="T97Yaj8DOWVPiAnZlW2O-11" value="No" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="T97Yaj8DOWVPiAnZlW2O-10">
+          <mxGeometry x="0.027" y="-1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="T97Yaj8DOWVPiAnZlW2O-14" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="T97Yaj8DOWVPiAnZlW2O-7" target="T97Yaj8DOWVPiAnZlW2O-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="T97Yaj8DOWVPiAnZlW2O-7" value="Is vehicle to Rent?" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="470" y="90" width="90" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="T97Yaj8DOWVPiAnZlW2O-9" value="Put user in list to rent" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="250" y="200" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="T97Yaj8DOWVPiAnZlW2O-16" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="T97Yaj8DOWVPiAnZlW2O-13" target="T97Yaj8DOWVPiAnZlW2O-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="T97Yaj8DOWVPiAnZlW2O-13" value="Assign vehicle to user" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="625" y="110" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="T97Yaj8DOWVPiAnZlW2O-15" value="Modify vehicle status to rented" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="625" y="250" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

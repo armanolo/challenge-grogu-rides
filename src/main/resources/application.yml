@@ -1,0 +1,40 @@
+server:
+  port: 8080
+
+application:
+  title: Challenge grogu rides
+  description: Challenge grogu rides
+
+spring:
+  #h2:
+  #  console:
+  #    enabled: true
+  #    path: /h2-console
+  jpa:
+    hibernate:
+      ddl-auto: update
+      naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties.hibernate:
+      ddl-auto: update
+      show_sql: true
+      use_sql_comments: true
+      format_sql: true
+      #default_schema: grogu
+  datasource:
+    url: jdbc:postgresql://localhost:5432/grogu
+    username: grogu
+    password: grogu
+    driverClassName: org.postgresql.Driver
+    hikari:
+      maximumPoolSize: 2
+      idle-timeout: 10000
+    #initialization-mode: always
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    path: /swagger-ui-custom.html # redirect to swagger-ui.html
+    use-root-path: true
+  cache:
+    disabled: true

@@ -1,0 +1,25 @@
+### POSTGRES DB
+./database/build.sh
+docker run --name grogu-postgres -p 5432:5432 -e POSTGRES_DB=grogu -e POSTGRES_USER=grogu -e POSTGRES_PASSWORD=grogu -d grogu-postgres
+
+
+### BUILD challenge-grogu-rides
+java -Dserver.port=4040 -jar ./build/libs/challenge-grogu-rides-0.0.1-SNAPSHOT.jar
+
+## Compile a execute code
+./gradlew clean build
+
+## Docker actions
+docker build -t challenge-grogu-rides --no-cache .
+#docker run -d -p 4040:4040 --name challenge-grogu-rides challenge-grogu-rides
+
+docker run -p 4040:4040 -e JAVA_OPTS=-Dserver.port=4040 -d --name grogu-rides challenge-grogu-rides
+docker run -p 8080:8080 -e JAVA_OPTS=-Dserver.port=8080 -d challenge-grogu-rides
+curl localhost:4040/api-docs
+curl http://localhost:4040/swagger-ui/index.html
+
+
+docker run -p 4040:4040 -e JAVA_OPTS=-Dserver.port=4040 -e SPRING_DATASOURCE_URL=jdbc:postgresql://grogu_postgres:5432/grogu -e SPRING_DATASOURCE_USERNAME=grogu -e SPRING_DATASOURCE_PASSWORD=grogu -e SPRING_JPA_HIBERNATE_DDL_AUTO=update -d --name grogu-rides challenge-grogu-rides
+
+
+

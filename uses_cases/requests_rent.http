@@ -1,0 +1,20 @@
+### Get rent list
+
+GET http://{{hostname}}:{{port}}/rent
+Content-Type: application/json
+
+### Order to rent a vehicle
+
+POST http://{{hostname}}:{{port}}/rent
+content-type: application/json
+
+{
+  "userId": "1c7fcfd7-423b-4742-a20c-49cba845bf2f",
+  "endTime": "2023-06-20 20:30:00",
+  "seats": 5
+}
+
+### Dropoff the vehicle
+
+POST http://{{hostname}}:{{port}}/rent/1c7fcfd7-423b-4742-a20c-49cba845bf2f/drop-off
+content-type: application/json
